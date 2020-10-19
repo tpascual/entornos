@@ -1,0 +1,12 @@
+#!/bin/bash
+lando rebuild
+lando wp core download
+lando wp core config --dbname=lamp --dbuser=lamp --dbpass=lamp --dbhost=database --dbprefix=wpn_
+lando wp core install --url=https://localhost --title=New-Wp --admin_user=admin --admin_password=123456 --admin_email=support@iniciativatec.com
+lando wp core update
+lando wp plugin install fakerpress
+lando wp theme update --all
+lando wp plugin update --all
+lando wp language core install es_ES
+lando wp site switch-language es_ES
+lando wp language plugin install es_ES --all

@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  facturascripts:
+    image: facturascripts/facturascripts:latest
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./facturascripts:/var/www/html
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql

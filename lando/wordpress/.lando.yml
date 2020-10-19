@@ -1,0 +1,30 @@
+name: lms
+recipe: wordpress
+config:
+  php: '7.4'
+  webroot: .
+  database: mysql:5.7
+proxy:
+  appserver:
+    - web.lms.lndo.site
+  database:
+    - db.lms.lndo.site
+  mailhog:
+    - mail.lms.lndo.site
+  pma:
+    - pma.lms.lndo.site
+services:
+  database:
+    portforward: 3318
+    creds:
+      user: lamp
+      password: lamp
+      database: lamp
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+    portforward: 1026
+  pma:
+    type: phpmyadmin
+    hosts: database
